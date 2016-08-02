@@ -3,13 +3,17 @@ import ReactDOM from 'react-dom';
 import { Meteor } from 'meteor/meteor';
 import { createContainer } from 'meteor/react-meteor-data';
 
-import { Tasks } from '../api/tasks.js';
+import { Tasks } from '../../api/tasks.js';
+
+import { Paras } from '../../api/para.js';
 
 import Task from './Task.jsx';
 import AccountsUIWrapper from './AccountsUIWrapper.jsx';
 
+import MyAgentList from '../component/MyAgentList.jsx';
+
 // App component - represents the whole app
-class App extends Component {
+export default class App extends Component {
   constructor(props) {
     super(props);
 
@@ -36,6 +40,21 @@ class App extends Component {
     });
   }
 
+//已订阅的agent
+  renderAgent() {
+    let filteredTasks = this.props.tasks;
+
+    filteredTasks = filteredTasks.filter(task => !task.private);
+    return filteredTasks.map((lists) => {
+     // const currentUserId = this.props.currentUser && this.props.currentUser._id;
+    //  const showPrivateButton = lists.owner === currentUserId;
+
+      return (
+          <MyAgentList lists={lists}/>
+      );
+    });
+  }
+
   renderTasks() {
     let filteredTasks = this.props.tasks;
     if (this.state.hideCompleted) {
@@ -46,20 +65,34 @@ class App extends Component {
       const showPrivateButton = task.owner === currentUserId;
 
       return (
-        <Task
-          key={task._id}
-          task={task}
-          showPrivateButton={showPrivateButton}
-        />
+          <Task
+              key={task._id}
+              task={task}
+              showPrivateButton={showPrivateButton}
+              />
       );
     });
   }
 
+  showParas() {
+
+    let parasTmp = this.props.paras;
+
+    return     parasTmp.map((para) => {
+           return (
+         <li className = 'paras'> {para.text}</li>
+      );
+    });
+  }
+
+
   render() {
     return (
+
+
       <div className="container">
         <header>
-          <h1>Todo List ({this.props.incompleteCount})</h1>
+         <h1>Agent List ({this.props.incompleteCount})</h1>
 
           <label className="hide-completed">
             <input
@@ -68,42 +101,60 @@ class App extends Component {
               checked={this.state.hideCompleted}
               onClick={this.toggleHideCompleted.bind(this)}
             />
-            Hide Completed Tasks
+            Hide Completed Agent
           </label>
-
+          {/*用户登录*/}
           <AccountsUIWrapper />
 
-          { this.props.currentUser ?
-            <form className="new-task" onSubmit={this.handleSubmit.bind(this)} >
-              <input
-                type="text"
-                ref="textInput"
-                placeholder="Type to add new tasks"
-              />
-            </form> : ''
-          }
+
         </header>
 
         <ul>
           {this.renderTasks()}
         </ul>
+
+        { this.props.currentUser ?
+            <form className="new-task" onSubmit={this.handleSubmit.bind(this)} >
+              <input
+                  type="text"
+                  ref="textInput"
+                  placeholder="add new agent"
+                  />
+            </form> : ''
+        }
+        <br/>
+        <br/>
+        <ul>
+          已订阅Agent
+          {this.renderAgent()}
+        </ul>
+
+        <ul>
+        可选参数：
+          { this.showParas()}
+        </ul>
+
+
+
       </div>
     );
   }
 }
 
 App.propTypes = {
+  paras:PropTypes.array.isRequired,
   tasks: PropTypes.array.isRequired,
   incompleteCount: PropTypes.number.isRequired,
   currentUser: PropTypes.object,
 };
 
-export default createContainer(() => {
-  Meteor.subscribe('tasks');
 
-  return {
-    tasks: Tasks.find({}, { sort: { createdAt: -1 } }).fetch(),
-    incompleteCount: Tasks.find({ checked: { $ne: true } }).count(),
-    currentUser: Meteor.user(),
-  };
-}, App);
+//export default createContainer(() => {
+//  Meteor.subscribe('tasks');
+//
+//  return {
+//    tasks: Tasks.find({}, { sort: { createdAt: -1 } }).fetch(),
+//    incompleteCount: Tasks.find({ checked: { $ne: true } }).count(),
+//    currentUser: Meteor.user(),
+//  };
+//}, App);

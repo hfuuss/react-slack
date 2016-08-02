@@ -28,6 +28,7 @@ export default class Task extends Component {
     return (
       <li className={taskClassName}>
         <button className="delete" onClick={this.deleteThisTask.bind(this)}>
+         Delete
           &times;
         </button>
 
@@ -40,7 +41,7 @@ export default class Task extends Component {
 
         { this.props.showPrivateButton ? (
           <button className="toggle-private" onClick={this.togglePrivate.bind(this)}>
-            { this.props.task.private ? 'Private' : 'Public' }
+            { !this.props.task.private ? '取消' : '订阅' }
           </button>
         ) : ''}
 
