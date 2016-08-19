@@ -2,39 +2,38 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
 
-export const Msgs = new Mongo.Collection('msgs');
+export const Notify = new Mongo.Collection('notify');
 
-//if (Meteor.isServer) {
-//    // This code only runs on the server
-//    // Only publish tasks that are public or belong to the current user
-//    Meteor.publish('tasks', function tasksPublication() {
-//        return Tasks.find({
-//            $or: [
-//                { private: { $ne: true } },
-//                { owner: this.userId },
-//            ],
-//        });
-//    });
-//}
+if (Meteor.isServer) {
+    // This code only runs on the server
+    // Only publish tasks that are public or belong to the current user
+    Meteor.publish('notify', function tasksPublication() {
+        return Notify.find();
+    });
+}
 
 Meteor.methods({
-    'msgs.insert'(text,agentId) {
+    'notify.insert'(text,strategyId,messageId) {
         check(text, String);
-        check(agentId, String);
+        check(strategyId, String);
+        check(messageId, String);
+
 
         // Make sure the user is logged in before inserting a task
         if (! this.userId) {
             throw new Meteor.Error('not-authorized');
         }
 
-        Msgs.insert({
+        Notify.insert({
             text,
+            strategyId,
+            messageId,
             createdAt: new Date(),
             owner: this.userId,
-            agentId: agentId,
+            isRead:false,//默认没有被读取
         });
     },
-    'tasks.remove'(msgId) {
+    'notify.remove'(Id) {
         check(msgId, String);
 
         const msg = Msgs.findOne(msgId);
@@ -43,7 +42,7 @@ Meteor.methods({
             throw new Meteor.Error('not-authorized');
         }
 
-        Msgs.remove(msgId);
+        Notify.remove(msgId);
     },
 
 });
