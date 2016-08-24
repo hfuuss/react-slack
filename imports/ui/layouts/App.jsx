@@ -59,31 +59,38 @@ export default class App extends Component {
 
 
           <header>
+          </header>
+
+              <ul id="dropdown1" className="dropdown-content">
+                  <li> <Link to="/record">策略记录</Link></li>
+                  <li> <Link to="/running">running的策略</Link></li>
+                  <li> <Link to="/message">Message记录</Link>></li>
+                  <li> <Link to="/notify">Notify记录</Link></li>
+              </ul>
 
               <nav>
                   <div className="nav-wrapper teal lighten-2">
                       <a href="/" className="brand-logo">ioobot</a>
+
                       <ul id="nav-mobile" className="right hide-on-med-and-down">
+
+                          <li><a className="dropdown-button" href="/" data-activates="dropdown1">菜单</a></li>
+
                           {/*用户登录*/}
                           <li><AccountsUIWrapper /></li>
+
                       </ul>
                   </div>
               </nav>
 
 
-          </header>
+
 
           <div className="row">
 
               <div className="col s12 m4 l3">
 
-                  <ul id="dropdown2" className="dropdown-content">
-                      <li> <Link to="/record">策略记录</Link></li>
-                      <li> <Link to="/running">running的策略</Link></li>
-                      <li> <Link to="/message">Message记录</Link></li>
-                      <li> <Link to="/notify">Notify记录</Link></li>
-                  </ul>
-                  <a className="btn dropdown-button" href="#!" data-activates="dropdown2">菜单<i className="mdi-navigation-arrow-drop-down right"></i></a>
+
 
                 <li>可订阅策略</li>
                   {/*可订阅策略显示组件*/}
@@ -98,7 +105,6 @@ export default class App extends Component {
               </div>
 
               <div className="col s12 m8 l9">
-
 
                   <ul> {this.props.children}</ul>
 
