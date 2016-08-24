@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Route, browserHistory,hashHistory } from 'react-router';
+import {IndexRoute, Router, Route, browserHistory,hashHistory } from 'react-router';
 
 // route components
 import AppContainer from '../../ui/containers/AppContainer.jsx';
@@ -11,10 +11,12 @@ import NotifyContainer from '../../ui/containers/NotifyContainer.jsx';
 export const renderRoutes = () => (
     <Router history={hashHistory}>
         <Route path="/" component={AppContainer}>
+            <IndexRoute component={RecordContainer}/>
             <Route path="/record" component={RecordContainer}/>
             <Route path="/message" component={MsgsContainer}/>
             <Route path="/running" component={RuniningStrategyContainer}/>
             <Route path="/notify" component={NotifyContainer}/>
+
          </Route>
     </Router>
 );

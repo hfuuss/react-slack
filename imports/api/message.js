@@ -7,8 +7,8 @@ export const Msgs = new Mongo.Collection('msgs');
 if (Meteor.isServer) {
     // This code only runs on the server
     // Only publish tasks that are public or belong to the current user
-    Meteor.publish('msgs', function tasksPublication() {
-        return Tasks.find();
+    Meteor.publish('msgs', function MsgsPublication() {
+        return Msgs.find();
     });
 }
 
@@ -34,5 +34,14 @@ Meteor.methods({
 
         Msgs.remove(msgId);
     },
+
+    //ddp-server
+    newMessage: function (message) {
+        message.timestamp = Date.now();
+        message.user = Meteor.userId();
+        message.notify = false;//是否被读取过
+        Msgs.insert(message);
+    },
+
 
 });

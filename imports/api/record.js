@@ -13,26 +13,26 @@ if (Meteor.isServer) {
 }
 
 Meteor.methods({
-    'record.insert'(name, text,stockName, stockNum) {
+    'record.insert'( name) {
         //  console.log('strategys.insert', name);
+      //  check(name, String);
         check(name, String);
-        check(text, String);
        // check(createdAt,number );
-        check(stockName, String);
-        check(stockNum, String);
+        //check(stockName, String);
+      //  check(stockNum, String);
 
         // Make sure the user is logged in before inserting a task
-        if (! this.userId) {
-            throw new Meteor.Error('not-authorized');
-        }
+        //if (! this.userId) {
+        //    throw new Meteor.Error('not-authorized');
+        //}
 
         Record.insert({
             name,
-            text,
+            text:'ss',
             createdAt: new Date(),
             owner: this.userId,
-            stockName,
-            stockNum,
+            stockName:'ss',
+            stockNum:'ss',
         });
     },
     'record.remove'(Id) {

@@ -22,6 +22,10 @@ export default class App extends Component {
   }
 
 
+
+
+
+
     //写得好混乱啊
   handleSubmit(event) {
     event.preventDefault();
@@ -54,6 +58,7 @@ export default class App extends Component {
      // const currentUserId = this.props.currentUser && this.props.currentUser._id;
     //  const showPrivateButton = lists.owner === currentUserId;
 
+
       return (
           <AllStrategyList lists={lists}
           key={lists._id}
@@ -65,6 +70,14 @@ export default class App extends Component {
 
 //渲染函数
   render() {
+
+
+      $(document).ready(function(){
+          $('.collapsible').collapsible({
+              accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+          });
+      });
+
     return (
 
 
@@ -106,7 +119,7 @@ export default class App extends Component {
 
                   </ul>
 
-                  {/*增加策略----可以封装成一个组件，后期重构*/}
+                  {/*增加策略----可以封装成一个组件，后期重构
 
                   { this.props.currentUser ?
                       <form className="new-task" onSubmit={this.handleSubmit.bind(this)} >
@@ -133,7 +146,7 @@ export default class App extends Component {
 
                           <input type="submit" value="添加" />
                       </form> : ''
-                  }
+                  }*/}
 
 
 
@@ -146,6 +159,7 @@ export default class App extends Component {
 
 
                   <ul> {this.props.children}</ul>
+
               </div>
 
 
@@ -160,7 +174,7 @@ export default class App extends Component {
 
 App.propTypes = {
     strategys: PropTypes.array.isRequired,
-   currentUser: PropTypes.object,
+     currentUser: PropTypes.object,
 };
 
 

@@ -4,9 +4,11 @@ import App from '../layouts/App.jsx';
 
 import { Strategys } from '../../api/strategys.js';
 
+
 export default AppContainer = createContainer(() => {
 
     Meteor.subscribe('strategys');
+    Meteor.subscribe('runningStrategys');
      // console.log(Strategys);
     //console.log(Tasks);
 

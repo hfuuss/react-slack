@@ -19,10 +19,6 @@ export default class RecordList extends Component {
 
                    <strong>{record.name}</strong>
 
-                         <p>{record.text}</p>
-                    {/*<p>制定时间：{record.createdAt}</p>   如何处理时间戳问题*/}
-                     <p>股票名称：{record.stockName}</p>
-                     <p>股票代码：{record.stockNum}</p>
                     </ul>
                 );
 

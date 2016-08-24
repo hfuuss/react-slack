@@ -15,12 +15,10 @@ if (Meteor.isServer) {
 }
 
     Meteor.methods({
-        'strategys.insert'(name, text, stockName, stockNum) {
+        'strategys.insert'(text) {
           //  console.log('strategys.insert', name);
-            check(name, String);
+
             check(text, String);
-            check(stockName, String);
-            check(stockNum, String);
 
 
             // Make sure the user is logged in before inserting a task
@@ -30,11 +28,11 @@ if (Meteor.isServer) {
 
             Strategys.insert({
                 name,
-                text,
+                text:'ss',
                 createdAt: new Date(),
                 owner: this.userId,
-                stockName,
-                stockNum,
+                stockName:'ss',
+                stockNum:'ss',
             });
         },
 
@@ -45,6 +43,34 @@ if (Meteor.isServer) {
 
             Strategys.remove(Id);
         },
+
+
+        'strategys.setPrivate'(strategysId, setToPrivate) {
+            check(strategysId, String);
+            check(setToPrivate, Boolean);
+
+            const Strategy = Strategys.findOne(strategysId);
+
+            // Make sure only the task owner can make a task private
+            //if (Strategy.owner !== this.userId) {
+            //    throw new Meteor.Error('not-authorized');
+            //}
+
+            Strategys.update(strategysId, { $set: { private: setToPrivate } });
+        },
+
+        //ddp-server
+
+        newChannel: function (channel) {
+            console.log(channel);
+            Strategys.insert({
+                name: channel,
+                private:false
+            });
+        },
+
+
+
 
     });
 
