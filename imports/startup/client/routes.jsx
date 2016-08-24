@@ -1,5 +1,6 @@
 import React from 'react';
 import {IndexRoute, Router, Route, browserHistory,hashHistory } from 'react-router';
+import { Session } from 'meteor/session'
 
 // route components
 import AppContainer from '../../ui/containers/AppContainer.jsx';
@@ -9,14 +10,16 @@ import RuniningStrategyContainer from '../../ui/containers/RunningStrategyContai
 import NotifyContainer from '../../ui/containers/NotifyContainer.jsx';
 
 export const renderRoutes = () => (
+    
     <Router history={hashHistory}>
         <Route path="/" component={AppContainer}>
             <IndexRoute component={RecordContainer}/>
             <Route path="/record" component={RecordContainer}/>
             <Route path="/message" component={MsgsContainer}/>
             <Route path="/running" component={RuniningStrategyContainer}/>
-            <Route path="/notify" component={NotifyContainer}/>
-
+            <Route path="/notify" component={NotifyContainer} />
+            <Route path="/message/:channel" component={MsgsContainer}/>
          </Route>
     </Router>
+
 );

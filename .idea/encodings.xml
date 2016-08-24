@@ -3,6 +3,7 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/client/main.html" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/imports/api/message.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/imports/startup/client/routes.jsx" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/imports/ui/component/AllStrategyList.jsx" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/imports/ui/layouts/App.jsx" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/imports/ui/page/RecordList.jsx" charset="UTF-8" />

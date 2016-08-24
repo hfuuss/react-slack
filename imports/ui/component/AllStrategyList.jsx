@@ -1,9 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { Meteor } from 'meteor/meteor';
+import { Router,Link } from 'react-router';
 
 // Task component - represents a single todo item
 export default class AllStrategyList extends Component {
-
 
 
     deleteThisStrategy() {
@@ -31,10 +31,13 @@ export default class AllStrategyList extends Component {
                     <ul className="collapsible lighten-2" data-collapsible="accordion">
 
                         <li>
-                        <div className="collapsible-header"><strong>策略;{this.props.lists.name}</strong></div>
-                        <div className="collapsible-body">
-                            <a className="waves-effect waves-light btn"  onClick={this.deleteThisStrategy.bind(this)}>Delete</a>
-                            <a className="waves-effect waves-light btn"  onClick={this.togglePrivate.bind(this)}> { this.props.lists.private ? 'Stop' : 'Running' }</a>
+                            <Link to={`/message/${this.props.lists.name}`}>
+
+                        <div className="listUrl"><strong>策略:{this.props.lists.name}</strong></div>
+                            </Link>
+                        <div className="Oprater">
+                            <a className="del btn"  onClick={this.deleteThisStrategy.bind(this)}>Delete</a>
+                            <a className="running btn"  onClick={this.togglePrivate.bind(this)}> { this.props.lists.private ? 'Stop' : 'Running' }</a>
                         </div>
                             </li>
 
@@ -56,6 +59,7 @@ AllStrategyList.propTypes = {
     // This component gets the task to display through a React prop.
     // We can use propTypes to indicate it is required
     lists: PropTypes.object.isRequired,
+
 
 };
 

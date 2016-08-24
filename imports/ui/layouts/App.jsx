@@ -23,32 +23,6 @@ export default class App extends Component {
 
 
 
-
-
-
-    //写得好混乱啊
-  handleSubmit(event) {
-    event.preventDefault();
-
-    // Find the text field via the React ref
-      //console.log(this.props.strategys);
-
-     const textInputName = ReactDOM.findDOMNode(this.refs.textInputName).value.trim();
-     const textInputText = ReactDOM.findDOMNode(this.refs.textInputText).value.trim();
-     const textInputStockName = ReactDOM.findDOMNode(this.refs.textInputStockName).value.trim();
-     const textInputStockNum = ReactDOM.findDOMNode(this.refs.textInputStockNum).value.trim();
-      //  console.log("testtest");
-    //  Meteor.call('tasks.insert', textInputName,textInputText,textInputStockName,textInputStockNum);
-      Meteor.call('strategys.insert', textInputName,textInputText,textInputStockName,textInputStockNum);
-
-    // Clear form
-    ReactDOM.findDOMNode(this.refs.textInputName).value = '';
-    ReactDOM.findDOMNode(this.refs.textInputText).value = '';
-    ReactDOM.findDOMNode(this.refs.textInputStockName).value = '';
-    ReactDOM.findDOMNode(this.refs.textInputStockNum).value = '';
-  }
-
-
 //显示所有的strategy
   renderStrategy() {
     let filteredStrategy = this.props.strategys;
@@ -62,7 +36,7 @@ export default class App extends Component {
       return (
           <AllStrategyList lists={lists}
           key={lists._id}
-              />
+                />
       );
     });
   }
@@ -118,38 +92,6 @@ export default class App extends Component {
                       {this.renderStrategy()}
 
                   </ul>
-
-                  {/*增加策略----可以封装成一个组件，后期重构
-
-                  { this.props.currentUser ?
-                      <form className="new-task" onSubmit={this.handleSubmit.bind(this)} >
-                          <input
-                              type="text"
-                              ref="textInputName"
-                              placeholder="add new name"
-                              />
-                          <input
-                              type="text"
-                              ref="textInputText"
-                              placeholder="add new text"
-                              />
-                          <input
-                              type="text"
-                              ref="textInputStockName"
-                              placeholder="add new stockName"
-                              />
-                          <input
-                              type="text"
-                              ref="textInputStockNum"
-                              placeholder="add new stockNum"
-                              />
-
-                          <input type="submit" value="添加" />
-                      </form> : ''
-                  }*/}
-
-
-
 
 
 

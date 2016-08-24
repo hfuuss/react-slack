@@ -6,11 +6,15 @@ import MsgList from '../page/MsgList.jsx';
 
 import { Msgs } from '../../api/message.js';
 
+import { Session } from 'meteor/session'
+
 export default MsgsContainer = createContainer(() => {
 
     Meteor.subscribe('msgs');
     // console.log(Strategys);
-    //console.log(Tasks);
+    //
+    //Session.set('channel', this.props.params.channel);
+   // console.log(this.params.channel);
 
     return {
         msgs: Msgs.find().fetch(),
